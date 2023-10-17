@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
   messageContainer: {
     alignSelf: 'flex-end',
     margin: 5,
-    backgroundColor: '#007bff',
+    backgroundColor: '#E6A1C6',
     borderRadius: 10,
     paddingHorizontal: 10,
     paddingVertical: 5,
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
   sendButton: {
     marginLeft: 10,
     padding: 10,
-    backgroundColor: '#007bff',
+    backgroundColor: '#E6A1C6',
     borderRadius: 20,
   },
   sendButtonText: {
