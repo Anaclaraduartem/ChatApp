@@ -9,15 +9,21 @@ const ChatScreen = () => {
   const sendMessage = () => {
     if (message.trim() === '') return;
 
-    setMessages([...messages, { text: message, id: messages.length }]);
+    const newMessage = { text: message, id: messages.length + 1, isUser: true };
+    setMessages([...messages, newMessage]);
     setMessage('');
 
     // Role automaticamente para a nova mensagem
     flatListRef.current.scrollToEnd({ animated: true });
   };
 
+  const deleteMessage = (id) => {
+    const updatedMessages = messages.filter((message) => message.id !== id);
+    setMessages(updatedMessages);
+  };
+
   return (
-    <View style={{ flex: 1 }}>
+    <View style={styles.container}>
       <FlatList
         ref={flatListRef}
         data={messages}
@@ -25,6 +31,11 @@ const ChatScreen = () => {
         renderItem={({ item }) => (
           <View style={styles.messageContainer}>
             <Text style={styles.messageText}>{item.text}</Text>
+            {item.isUser && (
+              <TouchableOpacity onPress={() => deleteMessage(item.id)}>
+                <Text style={styles.deleteButton}>Apagar</Text>
+              </TouchableOpacity>
+            )}
           </View>
         )}
       />
@@ -44,23 +55,32 @@ const ChatScreen = () => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'flex-end',
+  },
   messageContainer: {
-    alignSelf: 'flex-end',
-    margin: 5,
-    backgroundColor: '#E6A1C6',
-    borderRadius: 10,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 5,
+    marginHorizontal: 10,
   },
   messageText: {
+    backgroundColor: '#007bff',
     color: 'white',
+    padding: 10,
+    borderRadius: 10,
+    marginRight: 10,
+  },
+  deleteButton: {
+    color: 'red',
   },
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 10,
     borderTopWidth: 1,
     borderTopColor: '#ccc',
+    padding: 10,
   },
   input: {
     flex: 1,
@@ -73,9 +93,9 @@ const styles = StyleSheet.create({
   },
   sendButton: {
     marginLeft: 10,
-    padding: 10,
-    backgroundColor: '#E6A1C6',
+    backgroundColor: '#007bff',
     borderRadius: 20,
+    padding: 10,
   },
   sendButtonText: {
     color: 'white',
