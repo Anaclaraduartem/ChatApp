@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { View, Text, TextInput, FlatList, TouchableOpacity, KeyboardAvoidingView, StyleSheet } from 'react-native';
+import { FontAwesome5 } from '@expo/vector-icons'; // Importe o ícone de lixeira
 
 const ChatScreen = () => {
   const [messages, setMessages] = useState([]);
@@ -24,6 +25,9 @@ const ChatScreen = () => {
 
   return (
     <View style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.headerText}>Mulheres Conectadas</Text>
+      </View>
       <FlatList
         ref={flatListRef}
         data={messages}
@@ -33,7 +37,7 @@ const ChatScreen = () => {
             <Text style={styles.messageText}>{item.text}</Text>
             {item.isUser && (
               <TouchableOpacity onPress={() => deleteMessage(item.id)}>
-                <Text style={styles.deleteButton}>Apagar</Text>
+                <FontAwesome5 name="trash-alt" size={20} color="black" />{/* Ícone de lixeira */}
               </TouchableOpacity>
             )}
           </View>
@@ -59,6 +63,16 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
   },
+  header: {
+    backgroundColor: 'pink',
+    padding: 15,
+    alignItems: 'center',
+  },
+  headerText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: 'black',
+  },
   messageContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -66,14 +80,11 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
   messageText: {
-    backgroundColor: '#007bff',
-    color: 'white',
+    backgroundColor: 'pink', // Cor das mensagens
+    color: 'black',
     padding: 10,
     borderRadius: 10,
     marginRight: 10,
-  },
-  deleteButton: {
-    color: 'red',
   },
   inputContainer: {
     flexDirection: 'row',
@@ -93,12 +104,12 @@ const styles = StyleSheet.create({
   },
   sendButton: {
     marginLeft: 10,
-    backgroundColor: '#007bff',
+    backgroundColor: 'pink', // Cor do botão de envio
     borderRadius: 20,
     padding: 10,
   },
   sendButtonText: {
-    color: 'white',
+    color: 'black',
   },
 });
 
